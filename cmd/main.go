@@ -20,6 +20,10 @@ func main() {
 	router.HandleFunc("/budgets", handlers.BudgetsHandler)
 	router.HandleFunc("/transactions", handlers.TransactionsHandler)
 
+	// register the static files directory
+	fs := http.FileServer(http.Dir("static"))
+	router.Handle("/static/", http.StripPrefix("/static/", fs))
+
 	// create a new server
 	server := http.Server{
 		Addr:    fmt.Sprintf(":%d", 8080),
