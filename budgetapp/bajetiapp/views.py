@@ -13,6 +13,15 @@ from django.db.models import Q
 
 def index(request):
     expense_items = ExpenseInfo.objects.filter(user_expense=request.user).order_by('-date_added')
+    try:
+        budget_total = ExpenseInfo.objects.filter(user_expense=request.user).aggregate(budget=Sum('cost',filter=Q(cost__gt=0)))
+        expense_total = ExpenseInfo.objects.filter(user_expense=request.user).aggregate(expenses=Sum('cost',filter=Q(cost__lt=0)))
+        fig,ax=plt.subplots()
+        ax.bar(['Expenses','Budget'], [abs(expense_total['expenses']),budget_total['budget']],color=['red','green'])
+        ax.set_title('Total Expenses vs total budget')
+        plt.savefig('bajetiapp/static/bajetiapp/expenses.jpg')
+    except TypeError:
+        print('No data.')
     return render(request, 'bajetiapp/index.html',context={'user':request.user,'expense_items':expense_items})
 
 def sign_up(request):
