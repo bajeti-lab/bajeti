@@ -2,7 +2,7 @@ package utils
 
 import (
 	"time"
-	"fmt"
+	"github.com/bajeti-lab/bajeti/internal/models"
 )
 
 // GetCurrentTime returns the current time as a formatted string
@@ -18,39 +18,13 @@ func CalculateTotal(values []float64) float64 {
 	}
 	return total
 }
-// Capture expenses details
-// The items should be stored as a list 
-// Iterate list to calculate the total 
-func getExpenditures() {
-	expenses := make(map[string]float64)
-	total := 0.0
 
-// Collect expense details
-for {
-	var expenseName string
-	var expenseAmount float64
-
-	fmt.Print("Enter expense name (or 'q' to quit):")
-	fmt.Scanln(&expenseName)
-
-	// Break the loop if the user enters 'q'
-	if expenseName == "q" {
-		break
+// implement a factory handler to create necessary budget categories
+func CreateCategory(categorystruct struct {}) {
+	category := models.Categories{
+		CategoryId: 1,
+		Title: categorystruct.Title,
+		Description: categorystruct.Description,
+		Amount: 0,
 	}
-
-	fmt.Print("Enter expense amount: ")
-	fmt.Scanln(&expenseAmount)
-
-	expenses[expenseName] = expenseAmount
-	total += expenseAmount
-}
-
-fmt.Println("\nMonthly Expenditure:")
-fmt.Println("====================")
-
-// Print each expense
-for name, amount := range expenses {
-	fmt.Printf("%s: $%.2f\n", name, amount)
-	fmt.Printf("Total: $%.2f\n", total)
-}
 }

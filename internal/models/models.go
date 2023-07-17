@@ -1,25 +1,35 @@
 package models
 
-// Budget represents a budget in the application
+import "time"
+
 type Budget struct {
-	ID          int64
-	Name        string
-	Description string
-	Amount      float64
+	Period time.Time
 }
 
-// Transaction represents a transaction in the application
-type Transaction struct {
-	ID          int64
-	Name        string
-	Description string
-	Amount      float64
-	BudgetID    int64
-}
-
-// User represents a user in the application
 type User struct {
-	ID       int64
-	Username string
-	Password string
+	Username 	string
+	Email 		string
+	Password 	string
+}
+
+type Categories struct {
+	CategoryId 	uint
+	Title       string
+	Description string
+	Amount	  int64
+}
+
+type Expense struct{
+	ExpenseId	uint
+	Name		string
+	Description	string
+	Amount		int64
+	CategoryId	int64
+}
+
+type Income struct{
+	IncomeId	uint
+	Description string
+	Amount		float64
+	CategoryId	uint
 }
