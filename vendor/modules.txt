@@ -47,7 +47,7 @@ fyne.io/systray/internal/generated/menu
 fyne.io/systray/internal/generated/notifier
 # fyne.io/x/fyne v0.0.0-20231016094250-d8fd8fd5ea17
 ## explicit; go 1.14
-fyne.io/x/fyne/layout
+fyne.io/x/fyne/widget
 # github.com/davecgh/go-spew v1.1.1
 ## explicit
 github.com/davecgh/go-spew/spew
@@ -146,6 +146,9 @@ github.com/joho/godotenv
 github.com/jsummers/gobmp
 # github.com/lib/pq v1.10.9
 ## explicit; go 1.13
+# github.com/nfnt/resize v0.0.0-20180221191011-83c6a9932646
+## explicit
+github.com/nfnt/resize
 # github.com/pmezard/go-difflib v1.0.0
 ## explicit
 github.com/pmezard/go-difflib/difflib

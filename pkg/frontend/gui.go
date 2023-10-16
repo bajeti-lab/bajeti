@@ -4,30 +4,63 @@ import (
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/canvas"
 	"fyne.io/fyne/v2/container"
+	"fyne.io/fyne/v2/layout"
 	"fyne.io/fyne/v2/theme"
 	"fyne.io/fyne/v2/widget"
 )
 
-func MakeTitleBar() fyne.CanvasObject {
-	toolbar := widget.NewToolbar(
-		widget.NewToolbarAction(theme.MenuExpandIcon(), func() {}),
+func MakeSidebar() fyne.CanvasObject {
+	sidebar := container.NewVBox(
+		widget.NewToolbar(
+			widget.NewToolbarSpacer(),
+			widget.NewToolbarAction(theme.MenuIcon(), func() {}),
+		),
+		widget.NewButton("Home", func() {}),
+		widget.NewButton("Budgets", func() {}),
+		widget.NewButton("Transactions", func() {}),
+		widget.NewButton("Reports", func() {}),
+		widget.NewButton("Settings", func() {}),
 	)
 
+	return sidebar
+
+}
+
+func MakeContent() fyne.CanvasObject {
 	logo := canvas.NewImageFromResource(resourceLogoPng)
 	logo.FillMode = canvas.ImageFillContain
-	logo.SetMinSize(fyne.NewSize(70, 70))
+	logo.SetMinSize(fyne.NewSize(45, 45))
 
-	return container.NewStack(toolbar, logo)
+	logoGrid := container.New(
+		layout.NewGridLayout(4),
+		logo,
+	)
+
+	salutationSection := container.NewVBox(
+		widget.NewLabel("Hi,"),
+	)
+
+	searchSection := container.NewHBox(
+		MakeSearch(),
+	)
+	searchSection.Position()
+
+	content := container.NewVBox(
+		// content := canvas.NewRectangle(color.Gray{Y: 0xee})
+		logoGrid,
+		salutationSection,
+		searchSection,
+	)
+
+	return content
 
 }
 
 func MakeGUI() fyne.CanvasObject {
-	left := widget.NewLabel("Left")
-	right := widget.NewLabel("Right")
+	left := MakeSidebar()
+	content := MakeContent()
 
-	content := widget.NewLabel("Content")
-	content.Wrapping = fyne.TextWrapWord
-	content.Alignment = fyne.TextAlignCenter
+	objs := []fyne.CanvasObject{left, content}
 
-	return container.NewBorder(MakeTitleBar(), nil, right, left, content)
+	return container.New(newBajetiLayout(left, content), objs...)
 }
