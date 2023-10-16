@@ -28,3 +28,7 @@ func (t *BajetiTheme) Size(name fyne.ThemeSizeName) float32 {
 
 	return t.Theme.Size(name)
 }
+
+func (t *BajetiTheme) Icon(name fyne.ThemeIconName) fyne.Resource {
+	return t.Theme.Icon(name)
+}

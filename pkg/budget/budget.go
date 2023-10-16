@@ -6,7 +6,7 @@ import (
 	"gorm.io/gorm"
 )
 
-func CreateBudget(db *gorm.DB, amount float64, startDate string, endDate string, userID int) {
+func CreateBudget(db *gorm.DB, amount float64, startDate string, endDate string, userID uint) {
 	// Create the budget
 	b := &server.Budget{
 		Amount:    amount,

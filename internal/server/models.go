@@ -19,12 +19,18 @@ type User struct {
 	Transactions []Transaction
 }
 
+/*
+Account is a representation of an account in the database.
+Accounts belong to a Budget and an Expense.
+Multiple accounts can belong to a single Budget or Expense.
+*/
 type Account struct {
 	gorm.Model
-	ID        int `gorm:"primaryKey"`
+	ID        uint `gorm:"primaryKey"`
 	Title     string
-	BudjetID  int
-	ExpenseID int
+	Amount    float64
+	BudgetID  uint
+	ExpenseID uint
 }
 
 type Budget struct {
@@ -32,39 +38,39 @@ type Budget struct {
 	Amount    float64
 	StartDate string `gorm:"datatypes:DATE"`
 	EndDate   string `gorm:"datatypes:DATE"`
-	UserID    int
-	AccountID int `gorm:"foreignkey:AccountID"`
+	UserID    uint
+	Accounts  []*Account
 }
 
 type Expense struct {
 	gorm.Model
-	ID          int `gorm:"primary_key"`
-	Title       string
-	Amount      float64
-	Desctiption string
-	Date        string `gorm:"datatypes:DATE"`
-	UserID      int
-	AccountID   int `gorm:"foreignkey:AccountID"`
-}
-
-type Income struct {
-	gorm.Model
-	ID          int `gorm:"primary_key"`
-	Title       string
-	Amount      float64
-	Desctiption string
-	Date        string `gorm:"datatypes:DATE"`
-	UserID      int
-}
-
-type Saving struct {
-	gorm.Model
-	ID          int `gorm:"primary_key"`
+	ID          uint `gorm:"primary_key"`
 	Title       string
 	Amount      float64
 	Description string
 	Date        string `gorm:"datatypes:DATE"`
-	UserID      int
+	UserID      uint
+	Accounts    []*Account
+}
+
+type Income struct {
+	gorm.Model
+	ID          uint `gorm:"primary_key"`
+	Title       string
+	Amount      float64
+	Desctiption string
+	Date        string `gorm:"datatypes:DATE"`
+	UserID      uint
+}
+
+type Saving struct {
+	gorm.Model
+	ID          uint `gorm:"primary_key"`
+	Title       string
+	Amount      float64
+	Description string
+	Date        string `gorm:"datatypes:DATE"`
+	UserID      uint
 }
 
 type Goal struct {
@@ -74,15 +80,15 @@ type Goal struct {
 	Amount      float64
 	Description string
 	Date        string `gorm:"datatypes:DATE"`
-	UserID      int
+	UserID      uint
 }
 
 type Transaction struct {
 	gorm.Model
-	ID          int `gorm:"primary_key"`
+	ID          uint `gorm:"primary_key"`
 	Title       string
 	Amount      float64
 	Description string
 	Date        string `gorm:"datatypes:DATE"`
-	UserID      int
+	UserID      uint
 }

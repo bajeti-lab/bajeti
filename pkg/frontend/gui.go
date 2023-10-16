@@ -15,6 +15,7 @@ func MakeTitleBar() fyne.CanvasObject {
 
 	logo := canvas.NewImageFromResource(resourceLogoPng)
 	logo.FillMode = canvas.ImageFillContain
+	logo.SetMinSize(fyne.NewSize(70, 70))
 
 	return container.NewStack(toolbar, logo)
 
