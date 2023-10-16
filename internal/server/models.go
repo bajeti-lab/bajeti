@@ -7,9 +7,9 @@ import (
 // User is a representation of a user in the database
 type User struct {
 	gorm.Model
-	ID           int    `gorm:"primary_key"`
-	name         string `gorm:"unique_index;not null"`
-	email        string `gorm:"type:varchar(100);unique_index;not null"`
+	ID           uint   `gorm:"primaryKey"`
+	Name         string `gorm:"unique;not null"`
+	Email        string `gorm:"type:varchar(100);unique;not null"`
 	Password     string `gorm:"not null"`
 	Budgets      []Budget
 	Expenses     []Expense
@@ -21,7 +21,7 @@ type User struct {
 
 type Account struct {
 	gorm.Model
-	ID        int `gorm:"primary_key"`
+	ID        int `gorm:"primaryKey"`
 	Title     string
 	BudjetID  int
 	ExpenseID int
@@ -30,8 +30,8 @@ type Account struct {
 type Budget struct {
 	gorm.Model
 	Amount    float64
-	startDate string `gorm:"datatypes:DATE"`
-	endDate   string `gorm:"datatypes:DATE"`
+	StartDate string `gorm:"datatypes:DATE"`
+	EndDate   string `gorm:"datatypes:DATE"`
 	UserID    int
 	AccountID int `gorm:"foreignkey:AccountID"`
 }
@@ -69,11 +69,12 @@ type Saving struct {
 
 type Goal struct {
 	gorm.Model
-	ID          int `gorm:"primary_key"`
+	ID          uint `gorm:"primaryKey"`
 	Title       string
 	Amount      float64
 	Description string
 	Date        string `gorm:"datatypes:DATE"`
+	UserID      int
 }
 
 type Transaction struct {

@@ -20,8 +20,8 @@ RUN go get -d -v ./...
 # build the application
 RUN go install -v ./...
 
-# sep hot reload
-RUN go get github.com/githubnemo/CompileDaemon
-RUN go get -v golang.org/x/tools/gopls
+# expose port 8080 to the outside world
+EXPOSE 8080
 
-ENTRYPOINT CompileDaemon --build="go build -a -installsuffix cgo -o main." --command=./main
+# command to run the application
+CMD ["/build"]
