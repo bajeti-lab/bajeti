@@ -1,6 +1,4 @@
-# Personal Budgeting System
-
-![Bajeti]
+# [Bajeti]
 
 ## Project Description
 
