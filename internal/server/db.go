@@ -6,7 +6,11 @@ import (
 
 func OpenDatabase() {
 	// Create the database
-	db := utils.CreateDatabase()
+	db, err := utils.CreateDatabase()
+
+	if err != nil {
+		panic("failed to connect database")
+	}
 
 	// Migrate the schema
 	db.AutoMigrate(&User{})
