@@ -9,24 +9,21 @@ import (
 	"fyne.io/fyne/v2/widget"
 )
 
-func MakeSidebar() fyne.CanvasObject {
-	sidebar := container.NewVBox(
-		widget.NewToolbar(
-			widget.NewToolbarSpacer(),
-			widget.NewToolbarAction(theme.MenuIcon(), func() {}),
-		),
-		widget.NewButton("Home", func() {}),
-		widget.NewButton("Budgets", func() {}),
-		widget.NewButton("Transactions", func() {}),
-		widget.NewButton("Reports", func() {}),
-		widget.NewButton("Settings", func() {}),
+func MakeBottomBar() fyne.CanvasObject {
+	bottomBar := container.NewAppTabs(
+		container.NewTabItemWithIcon("Budget", theme.ContentAddIcon(), widget.NewLabel("Budget")),
+		container.NewTabItemWithIcon("Expenses", theme.ContentAddIcon(), widget.NewLabel("Expenses")),
+		container.NewTabItemWithIcon("Reports", theme.ContentAddIcon(), widget.NewLabel("Reports")),
+		container.NewTabItemWithIcon("Settings", theme.SettingsIcon(), widget.NewLabel("Settings")),
 	)
 
-	return sidebar
-
+	return bottomBar
 }
 
 func MakeContent() fyne.CanvasObject {
+	// Create a grid layout with 4 columns
+	// contentGrid := layout.NewAdaptiveGridLayout(4)
+	// Get the logo resource
 	logo := canvas.NewImageFromResource(resourceLogoPng)
 	logo.FillMode = canvas.ImageFillContain
 	logo.SetMinSize(fyne.NewSize(45, 45))
@@ -57,10 +54,10 @@ func MakeContent() fyne.CanvasObject {
 }
 
 func MakeGUI() fyne.CanvasObject {
-	left := MakeSidebar()
 	content := MakeContent()
+	bottom := MakeBottomBar()
 
-	objs := []fyne.CanvasObject{left, content}
+	objs := []fyne.CanvasObject{content, bottom}
 
-	return container.New(newBajetiLayout(left, content), objs...)
+	return container.New(newBajetiLayout(content, bottom), objs...)
 }

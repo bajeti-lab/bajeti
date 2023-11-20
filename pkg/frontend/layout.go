@@ -2,32 +2,30 @@ package frontend
 
 import "fyne.io/fyne/v2"
 
-const sidewidth = 220
-const WindowHeight = 1024
+const WindowHeight = 768
 const WindowWidth = 768
-const topHeight = 0
+const bottomHeight = 360
 
 type bajetiLayout struct {
-	left, content fyne.CanvasObject
+	content fyne.CanvasObject
+	bottom  fyne.CanvasObject
 }
 
-func newBajetiLayout(left, content fyne.CanvasObject) fyne.Layout {
-	return &bajetiLayout{left: left, content: content}
+func newBajetiLayout(content fyne.CanvasObject, bottom fyne.CanvasObject) fyne.Layout {
+	return &bajetiLayout{content: content, bottom: bottom}
 
 }
 
 func (l *bajetiLayout) Layout(_ []fyne.CanvasObject, size fyne.Size) {
+	l.content.Resize(fyne.NewSize(size.Width, size.Height-bottomHeight))
+	l.content.Move(fyne.NewPos(0, 0))
 
-	l.left.Move(fyne.NewPos(0, topHeight))
-	l.left.Resize(fyne.NewSize(sidewidth, size.Height-topHeight))
+	l.bottom.Resize(fyne.NewSize(size.Width, bottomHeight))
+	l.bottom.Move(fyne.NewPos(0, size.Height-bottomHeight))
 
-	l.content.Move(fyne.NewPos(sidewidth, topHeight))
-	l.content.Resize(fyne.NewSize(size.Width-sidewidth, size.Height-topHeight))
 }
 
 func (l *bajetiLayout) MinSize(objects []fyne.CanvasObject) fyne.Size {
-	leftWidth := l.left.MinSize().Width
-	contentHeight := l.content.MinSize().Height
+	return fyne.NewSize(WindowWidth, WindowHeight)
 
-	return fyne.NewSize(leftWidth+contentHeight, topHeight+contentHeight)
 }
